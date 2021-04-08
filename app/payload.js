@@ -73,17 +73,18 @@ var payload = (function(window, undefined) {
 
 		var city  = document.createElement('span');
 		city.id = "_city";
-		city.style = "";
+		city.style = "font-size: 14px;";
 
 		var comfort = document.createElement('span');
 		comfort.id = "_comfort";
-		comfort.style = "";
+		comfort.style = "font-size: 14px;";
 
 		var description = document.createElement('span');
 		description.id = "_description";
+		description.style = "font-size: 14px";
 
 		var img = document.createElement('img');
-		img.id = 'icon';
+		img.id = '_icon';
 
 		var state = document.createElement('span');
 		state.id = "_state";
@@ -91,31 +92,16 @@ var payload = (function(window, undefined) {
 		var temperature = document.createElement('span');
 		temperature.id = "_temperature";
 
-		/*
-		var location_city = document.createElement('div');
-		location_city.id = 'locCity';
-		location_city.style = 'font-size: 15px';
-
-		var img = document.createElement('img');
-		img.id = 'icon';
-
-		var span1 = document.createElement('span');
-		span1.id = 'weather';
-		span1.style = 'cursor: pointer; font-size: 15px;';
-
-		var span2 = document.createElement('span');
-		span2.id = 'location';
-		span2.style = 'cursor: pointer; font-size: 15px';
-
-		*/
-
 		document.getElementById('wx').appendChild(wrapper);
 		document.getElementById('wrapper').appendChild(city);
-		document.getElementById('current_wrapper').appendChild(comfort);
-		document.getElementById('current_wrapper').appendChild(description);
-		document.getElementById('current_wrapper').appendChild(state);
-		document.getElementById('current_wrapper').appendChild(temperature);
+		document.getElementById('wrapper').appendChild(state);
 
+		document.getElementById('wrapper').appendChild(current_wrapper);
+		document.getElementById('current').appendChild(comfort);
+		document.getElementById('current').appendChild(description);
+		document.getElementById('current').appendChild(temperature);
+
+		var tag_icon = document.getElementById('_icon');
 		var tag_city = document.getElementById('_city');
 		var tag_comfort = document.getElementById('_comfort');
 		var tag_description = document.getElementById('_description');
@@ -126,44 +112,41 @@ var payload = (function(window, undefined) {
 		/* if city is 1, then show widget */
 		if(_getCity(_getURL()) == 1) {
 			if ((windowWidth > 800) && (windowWidth < 1300)) {
-				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+				tag_temperature.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
 			} else if (windowWidth > 1300) {
-				city.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state + "<br/>";
-				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
-				loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
+				tag_city.innerHTML = data.observations.location[0].city + "<br/>";
+				tag_state.innerHTML = data.observations.location[0].state + "<br/>";
 			} else { }
 		} else if(_getAll(_getURL()) == 1) {
 
-			/*
-			icon.src = data.observations.location[0].observation[0].iconLink.concat("?apiKey=", apiKey);
-			icon.height = icon_size;
-			icon.width = icon_size;
-			icon.style = 'cursor: pointer';
-			*/
+			tag_icon.src = data.observations.location[0].observation[0].iconLink.concat("?apiKey=", apiKey);
+			tag_icon.height = icon_size;
+			tag_icon.width = icon_size;
+			tag_icon.style = 'cursor: pointer';
 
 			if((windowWidth >= 300) && (windowWidth <= 400)) {
 				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
 			} else if ((windowWidth > 800) && (windowWidth < 1300)) {
-				locCity.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
-				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+				tag_temperature.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+				//locCity.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
+				//wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
 			} else if (windowWidth > 1300) {
+				tag_temperature.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
 				//city.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state + "<br/>";
-				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
-				loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
+				//wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
+				//loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
 			} else { }
 		} else if(_getIcon(_getURL()) == 1) {
-			/*
-			icon.src = data.observations.location[0].observation[0].iconLink.concat("?apiKey=", apiKey);
-			icon.height = icon_size;
-			icon.width = icon_size;
-			icon.style = 'cursor: pointer';
-			*/
+			tag_icon.src = data.observations.location[0].observation[0].iconLink.concat("?apiKey=", apiKey);
+			tag_icon.height = icon_size;
+			tag_icon.width = icon_size;
+			tag_icon.style = 'cursor: pointer';
 		} else if(_getTemp(_getURL()) == 1) {
 			if ((windowWidth > 800) && (windowWidth < 1300)) {
-				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+				//wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
 			} else if (windowWidth > 1300) {
-				city.innerHTML = 'Patrick';
-				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
+				//city.innerHTML = 'Patrick';
+				//wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
 				//		loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
 			} else { }
 		}
