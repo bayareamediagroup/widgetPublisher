@@ -67,6 +67,31 @@ var payload = (function(window, undefined) {
 		wrapper.id = 'wrapper';
 		wrapper.style ="background-color: #4f94d4; border-radius: 5px; height: 300px; width: 300px;padding: 10px;";
 
+		var current_wrapper = document.createElement('div');
+		current_wrapper.id = 'current';
+		current_wrapper.style = 'border: 1px solid #0000cc; color: #fff; font-size: 20px';
+
+		var city  = document.createElement('span');
+		city.id = "_city";
+		city.style = "";
+
+		var comfort = document.createElement('span');
+		comfort.id = "_comfort";
+		comfort.style = "";
+
+		var description = document.createElement('span');
+		description.id = "_description";
+
+		var img = document.createElement('img');
+		img.id = 'icon';
+
+		var state = document.createElement('span');
+		state.id = "_state";
+
+		var temperature = document.createElement('span');
+		temperature.id = "_temperature";
+
+		/*
 		var location_city = document.createElement('div');
 		location_city.id = 'locCity';
 		location_city.style = 'font-size: 15px';
@@ -82,21 +107,24 @@ var payload = (function(window, undefined) {
 		span2.id = 'location';
 		span2.style = 'cursor: pointer; font-size: 15px';
 
-		document.getElementById('wx').appendChild(wrapper);
-		document.getElementById('wrapper').appendChild(location_city);
-		document.getElementById('wrapper').appendChild(span2);
-		document.getElementById('wrapper').appendChild(img);
-		document.getElementById('wrapper').appendChild(span1);
+		*/
 
-		var city = document.getElementById('locCity');
-		var icon = document.getElementById('icon');
-		var wx = document.getElementById('weather');
-		var loc = document.getElementById('location');
-		locCity.innerHTML = "patrick";
+		document.getElementById('wx').appendChild(wrapper);
+		document.getElementById('wrapper').appendChild(city);
+		document.getElementById('current_wrapper').appendChild(comfort);
+		document.getElementById('current_wrapper').appendChild(description);
+		document.getElementById('current_wrapper').appendChild(state);
+		document.getElementById('current_wrapper').appendChild(temperature);
+
+		var tag_city = document.getElementById('_city');
+		var tag_comfort = document.getElementById('_comfort');
+		var tag_description = document.getElementById('_description');
+		var tag_icon = document.getElementById('_icon');
+		var tag_state = document.getElementById('_state');
+		var tag_temperature = document.getElementById('_temperature');
 
 		/* if city is 1, then show widget */
 		if(_getCity(_getURL()) == 1) {
-
 			if ((windowWidth > 800) && (windowWidth < 1300)) {
 				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
 			} else if (windowWidth > 1300) {
@@ -106,10 +134,12 @@ var payload = (function(window, undefined) {
 			} else { }
 		} else if(_getAll(_getURL()) == 1) {
 
+			/*
 			icon.src = data.observations.location[0].observation[0].iconLink.concat("?apiKey=", apiKey);
 			icon.height = icon_size;
 			icon.width = icon_size;
 			icon.style = 'cursor: pointer';
+			*/
 
 			if((windowWidth >= 300) && (windowWidth <= 400)) {
 				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
@@ -122,10 +152,12 @@ var payload = (function(window, undefined) {
 				loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
 			} else { }
 		} else if(_getIcon(_getURL()) == 1) {
+			/*
 			icon.src = data.observations.location[0].observation[0].iconLink.concat("?apiKey=", apiKey);
 			icon.height = icon_size;
 			icon.width = icon_size;
 			icon.style = 'cursor: pointer';
+			*/
 		} else if(_getTemp(_getURL()) == 1) {
 			if ((windowWidth > 800) && (windowWidth < 1300)) {
 				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
