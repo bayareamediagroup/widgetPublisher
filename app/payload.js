@@ -31,7 +31,7 @@ var payload = (function(window, undefined) {
 
 	const _getKey = function(param) {
 		const key = _helper(param.split('&key='));
-		return key[0]; 
+		return key; 
 	};
 
 	/* return the zipcode */
@@ -148,21 +148,6 @@ var payload = (function(window, undefined) {
 	};
 
 	window.document.title = "Weather for: " + _getZip(_getURL());
-	var a = _getCity(_getURL());
-	var b = _getIcon(_getURL());
-	var c = _getTemp(_getURL());
-	var d = _getAll(_getURL());
-
-	console.log("-->", a);
-	console.log("-->", b);
-	console.log("-->", c);
-	console.log("-->", d);
-
-	/* function loadAdditionalFiles(callback) {}
-	 * function getWidgetParams() {}
-	 * function getRatingData(params, callback) {}
-	 * function drawWidget() {}
-	 * */
 
 	/* public */
 	return {

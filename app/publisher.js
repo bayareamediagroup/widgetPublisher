@@ -11,10 +11,11 @@
 	const city = 0;
 	const icon = 0;
 	const temp = 0;
+	const key = 123456789; 
 
 	const script = document.createElement('script');
 
-	script.src = '//' + domain + ':' + port + '/app/payload.js?zipcode=' + zip + '&all=' + all + '&city=' + city + '&icon=' + icon + '&temp=' + temp;
+	script.src = '//' + domain + ':' + port + '/app/payload.js?zipcode=' + zip + '&all=' + all + '&city=' + city + '&icon=' + icon + '&temp=' + temp + '&key=' + key;
 	script.async = true;
 
 	const includeScript = document.getElementsByTagName('script')[0];
