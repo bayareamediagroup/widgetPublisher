@@ -69,11 +69,11 @@ var payload = (function(window, undefined) {
 
 		var current_wrapper = document.createElement('div');
 		current_wrapper.id = 'current';
-		current_wrapper.style = 'border: 1px solid #0000cc; color: #fff; font-size: 20px';
+		current_wrapper.style = 'color: #fff; font-size: 20px;';
 
 		var city  = document.createElement('span');
 		city.id = "_city";
-		city.style = "font-size: 14px;";
+		city.style = "color: #fff; font-size: 20px;";
 
 		var comfort = document.createElement('span');
 		comfort.id = "_comfort";
@@ -88,20 +88,22 @@ var payload = (function(window, undefined) {
 
 		var state = document.createElement('span');
 		state.id = "_state";
+		state.style = "color: #ffffff; font-size: 20px";
 
 		var temperature = document.createElement('span');
 		temperature.id = "_temperature";
+		temperature.style = "font-size: 40px";
 
 		document.getElementById('wx').appendChild(wrapper);
 		document.getElementById('wrapper').appendChild(city);
 		document.getElementById('wrapper').appendChild(state);
-
 		document.getElementById('wrapper').appendChild(current_wrapper);
+		document.getElementById('current').appendChild(temperature);
 		document.getElementById('current').appendChild(comfort);
 		document.getElementById('current').appendChild(description);
-		document.getElementById('current').appendChild(temperature);
 
-		var tag_icon = document.getElementById('_icon');
+		var list = ["_icon", "_city", "_comfort", "_description", "_icon", "_state", "_temperature" ];
+
 		var tag_city = document.getElementById('_city');
 		var tag_comfort = document.getElementById('_comfort');
 		var tag_description = document.getElementById('_description');
@@ -112,26 +114,33 @@ var payload = (function(window, undefined) {
 		/* if city is 1, then show widget */
 		if(_getCity(_getURL()) == 1) {
 			if ((windowWidth > 800) && (windowWidth < 1300)) {
-				tag_temperature.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+				tag_temperature.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;<br/>';
+				tag_comfort.innerHTML = " " + data.observations.location[0].observation[0].comfort.slice(0, 2) + '&deg;<br/>';
 			} else if (windowWidth > 1300) {
 				tag_city.innerHTML = data.observations.location[0].city + "<br/>";
 				tag_state.innerHTML = data.observations.location[0].state + "<br/>";
 			} else { }
 		} else if(_getAll(_getURL()) == 1) {
 
+			/*
 			tag_icon.src = data.observations.location[0].observation[0].iconLink.concat("?apiKey=", apiKey);
 			tag_icon.height = icon_size;
 			tag_icon.width = icon_size;
 			tag_icon.style = 'cursor: pointer';
+			*/
 
 			if((windowWidth >= 300) && (windowWidth <= 400)) {
 				wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
 			} else if ((windowWidth > 800) && (windowWidth < 1300)) {
 				tag_temperature.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+				tag_comfort.innerHTML = " " + data.observations.location[0].observation[0].comfort.slice(0, 2) + '&deg;<br/>';
 				//locCity.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
 				//wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
 			} else if (windowWidth > 1300) {
-				tag_temperature.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;';
+				tag_city.innerHTML = " " + data.observations.location[0].observation[0].city + ", ";
+				tag_state.innerHTML = " " + data.observations.location[0].observation[0].state + '<br/>';
+				tag_temperature.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;<br/>';
+				tag_comfort.innerHTML = "Feels Like: " + data.observations.location[0].observation[0].comfort.slice(0, 2) + '&deg;<br/>';
 				//city.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state + "<br/>";
 				//wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
 				//loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
