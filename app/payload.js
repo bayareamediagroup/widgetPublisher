@@ -2,6 +2,18 @@
  * this is the entry point for the third-party appliction.
  * */
 var payload = (function(window, undefined) {
+	var config = {
+		key = 'z5DpKECxcT9bjrURVyaR0qrWT94M5xgcxed12zU0rdc',
+		measurement: 'F',
+		getMeasurement: function() {
+			var self = this;
+			return self.measurement;
+		},
+		getAPIKey: function() {
+			return this.key;
+		}
+	};
+
 	/* private */
 	const apiKey = 'z5DpKECxcT9bjrURVyaR0qrWT94M5xgcxed12zU0rdc';
 
@@ -94,6 +106,13 @@ var payload = (function(window, undefined) {
 		temperature.id = "_temperature";
 		temperature.style = "font-size: 40px";
 
+		var daily_wrapper = document.createElement('div');
+		daily_wrapper.id = 'daily';
+
+		var day = document.createElement('div');
+		day.id = '_day';
+		day.style = 'color: #fff; font-size: 16px;';
+
 		document.getElementById('wx').appendChild(wrapper);
 		document.getElementById('wrapper').appendChild(city);
 		document.getElementById('wrapper').appendChild(state);
@@ -101,8 +120,8 @@ var payload = (function(window, undefined) {
 		document.getElementById('current').appendChild(temperature);
 		document.getElementById('current').appendChild(comfort);
 		document.getElementById('current').appendChild(description);
-
-		var list = ["_icon", "_city", "_comfort", "_description", "_icon", "_state", "_temperature" ];
+		document.getElementById('wrapper').appendChild(daily_wrapper);
+		document.getElementById('daily').appendChild(day);
 
 		var tag_city = document.getElementById('_city');
 		var tag_comfort = document.getElementById('_comfort');
@@ -110,6 +129,7 @@ var payload = (function(window, undefined) {
 		var tag_icon = document.getElementById('_icon');
 		var tag_state = document.getElementById('_state');
 		var tag_temperature = document.getElementById('_temperature');
+		var daily_day = document.getElementById('_day');
 
 		/* if city is 1, then show widget */
 		if(_getCity(_getURL()) == 1) {
@@ -139,8 +159,9 @@ var payload = (function(window, undefined) {
 			} else if (windowWidth > 1300) {
 				tag_city.innerHTML = " " + data.observations.location[0].observation[0].city + ", ";
 				tag_state.innerHTML = " " + data.observations.location[0].observation[0].state + '<br/>';
-				tag_temperature.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;<br/>';
+				tag_temperature.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg;' + config.getMeasurement() + '<br/>';
 				tag_comfort.innerHTML = "Feels Like: " + data.observations.location[0].observation[0].comfort.slice(0, 2) + '&deg;<br/>';
+				tag_description.innerHTML = data.observations.location[0].observation[0].description;
 				//city.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state + "<br/>";
 				//wx.innerHTML = " " + data.observations.location[0].observation[0].temperature.slice(0, 2) + '&deg; F';
 				//loc.innerHTML = data.observations.location[0].city + ", " + data.observations.location[0].state.slice(0, 2) + "<br/>";
